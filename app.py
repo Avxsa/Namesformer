@@ -35,23 +35,41 @@ def app():
     num_names = st.slider("How many names to generate?", 1, 20, 5)
     temperature = st.slider("Creativity slider", 0.5, 2.0, 1.0, 0.1)
 
-    if st.button("Generate Names"):
-        results = sample(
-            model=model,
-            m_dataset=m_dataset,
-            w_dataset=w_dataset,
-            start_str=start_str,
-            max_length=20,
-            num_names=num_names,
-        )
+    valid_chars = set(m_dataset.chars)
+    start_str = ''.join([c for c in start_str if c in valid_chars])
 
-        st.write(f"**Generated names:**")
-        for temp, genders in results.items():
-            st.write(f"### {temp}")
-            for g, names in genders.items():
-                st.write(f"**{g.capitalize()} Names:**")
-                for name in names:
-                    st.write(f"- {name}")
+    if not start_str:
+        st.error("Please enter valid starting letters.")
+        return
+
+    if st.button("Generate Names"):
+        try:
+            results = sample(
+                model=model,
+                m_dataset=m_dataset,
+                w_dataset=w_dataset,
+                start_str=start_str,
+                max_length=20,
+                num_names=num_names,
+            )
+
+            st.write(f"**Generated names:**")
+            for temp, genders in results.items():
+                st.write(f"### {temp}")
+
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.subheader("Man Names")
+                    for name in genders['man']:
+                        st.write(f"- {name}")
+                
+                with col2:
+                    st.subheader("Woman Names")
+                    for name in genders['woman']:
+                        st.write(f"- {name}")
+        except ValueError as e:
+            st.error(str(e))
 
 
 if __name__ == "__main__":
