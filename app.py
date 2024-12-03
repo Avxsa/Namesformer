@@ -3,7 +3,7 @@ import torch
 import pandas as pd
 from torch.utils.data import Dataset
 from arch import MinimalTransformer  
-from utils import train, sample  
+from utils import sample  
 
 class NameDataset(Dataset):
     def __init__(self, csv_file):
@@ -42,8 +42,8 @@ def app():
         for _ in range(num_names):
             name = sample(
                 model=model,
-                man_dataset=man_dataset,
-                woman_dataset=woman_dataset,
+                m_dataset=m_dataset,
+                w_dataset=w_dataset,
                 start_str=start_str,
                 max_length=20,
                 num_names=1,
