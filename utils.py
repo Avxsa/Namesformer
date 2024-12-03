@@ -29,17 +29,12 @@ def sample(model, m_dataset, w_dataset, start_str='A', max_length=20, num_names=
     temperatures = [0.5, 1.5]
     device = next(model.parameters()).device
 
-    print(f"{'Confidence':<20} {'Man Names':<30} {'Woman Names':<30}")
-    print("-" * 85)
+    results = {"Higher Confidence": {"man": [], "woman": []}, "More Creative": {"man": [], "woman": []}}
 
     for temp in temperatures:
-        m_names = []
-        w_names = []
-
         for _ in range(num_names):
             model.eval()
             with torch.no_grad():
-                # Generate m names
                 chars = [m_dataset.char_to_int[c] for c in start_str]
                 input_seq = torch.tensor(chars, device=device).unsqueeze(0)
                 output_name = start_str
@@ -53,7 +48,7 @@ def sample(model, m_dataset, w_dataset, start_str='A', max_length=20, num_names=
                         break
                     output_name += next_char
                     input_seq = torch.cat([input_seq, torch.tensor([[next_char_idx]], device=device)], dim=1)
-                m_names.append(output_name)
+                results["Higher Confidence" if temp == 0.5 else "More Creative"]["man"].append(output_name)
 
         for _ in range(num_names):
             model.eval()
@@ -71,9 +66,10 @@ def sample(model, m_dataset, w_dataset, start_str='A', max_length=20, num_names=
                         break
                     output_name += next_char
                     input_seq = torch.cat([input_seq, torch.tensor([[next_char_idx]], device=device)], dim=1)
-                w_names.append(output_name)
+                results["Higher Confidence" if temp == 0.5 else "More Creative"]["woman"].append(output_name)
 
-        confidence_label = "Higher Confidence" if temp == 0.5 else "More Creative"
+    return results
+    
         print(f"{confidence_label:<20}")
         for m_name, w_name in zip(m_names, w_names):
             print(f"{'':<20} {m_name:<30} {w_name:<30}")
