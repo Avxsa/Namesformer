@@ -69,9 +69,4 @@ def sample(model, m_dataset, w_dataset, start_str='A', max_length=20, num_names=
                 results["Higher Confidence" if temp == 0.5 else "More Creative"]["woman"].append(output_name)
 
     return results
-    
-        print(f"{confidence_label:<20}")
-        for m_name, w_name in zip(m_names, w_names):
-            print(f"{'':<20} {m_name:<30} {w_name:<30}")
-        print()
 
