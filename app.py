@@ -40,7 +40,7 @@ def app():
     start_str = st.text_input("Enter starting letters:", " ")
     gender = st.selectbox("Choose gender:", ["man", "woman"])
     num_names = st.slider("How many names to generate?", 1, 20, 5)
-    temperature = st.slider("Temperature (creativity)", 0.5, 2.0, 1.0, 0.1)
+    temperature = st.slider("Creativity slider ", 0.5, 2.0, 1.0, 0.1)
 
     if st.button("Generate Names"):
         dataset = man_dataset if gender == "man" else woman_dataset
