@@ -31,24 +31,28 @@ model.eval()
 def app():
     st.title("Namesformer")
 
-    start_str = st.text_input("Enter starting letters:", " ")
+    start_str = st.text_input("Enter starting letters:", "A")
     gender = st.selectbox("Choose gender:", ["man", "woman"])
     num_names = st.slider("How many names to generate?", 1, 20, 5)
-    temperature = st.slider("Creativity slider ", 0.5, 2.0, 1.0, 0.1)
+    temperature = st.slider("Creativity slider", 0.5, 2.0, 1.0, 0.1)
 
     if st.button("Generate Names"):
-        dataset = m_dataset if gender == "man" else w_dataset
-        st.write(f"**Generated {gender} names:**")
-        for _ in range(num_names):
-            name = sample(
-                model=model,
-                m_dataset=m_dataset,
-                w_dataset=w_dataset,
-                start_str=start_str,
-                max_length=20,
-                num_names=1,
-            )
-            st.write(f"- {name}")
+        results = sample(
+            model=model,
+            m_dataset=m_dataset,
+            w_dataset=w_dataset,
+            start_str=start_str,
+            max_length=20,
+            num_names=num_names,
+        )
+
+        st.write(f"**Generated names:**")
+        for temp, genders in results.items():
+            st.write(f"### {temp}")
+            for g, names in genders.items():
+                st.write(f"**{g.capitalize()} Names:**")
+                for name in names:
+                    st.write(f"- {name}")
 
 
 if __name__ == "__main__":
