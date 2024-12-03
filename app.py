@@ -25,7 +25,7 @@ class NameDataset(Dataset):
 m_dataset = NameDataset('m_names.csv')
 w_dataset = NameDataset('w_names.csv')
 
-model = torch.load('namesformer_model.pt')
+model = torch.load('namesformer_model.pt', map_location=torch.device('cpu'))
 model.eval()
 
 def app():
