@@ -22,8 +22,8 @@ class NameDataset(Dataset):
         return torch.tensor(encoded_name)
 
 
-man_dataset = NameDataset('man_names.csv')
-woman_dataset = NameDataset('woman_names.csv')
+m_dataset = NameDataset('man_names.csv')
+w_dataset = NameDataset('woman_names.csv')
 
 model = MinimalTransformer(
     vocab_size=man_dataset.vocab_size,
