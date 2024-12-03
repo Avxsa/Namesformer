@@ -37,7 +37,7 @@ def app():
     temperature = st.slider("Creativity slider ", 0.5, 2.0, 1.0, 0.1)
 
     if st.button("Generate Names"):
-        dataset = man_dataset if gender == "man" else woman_dataset
+        dataset = m_dataset if gender == "man" else w_dataset
         st.write(f"**Generated {gender} names:**")
         for _ in range(num_names):
             name = sample(
