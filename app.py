@@ -31,9 +31,8 @@ model.eval()
 def app():
     st.title("Namesformer")
 
-    start_str = st.text_input("Enter starting letters:", "A")
+    start_str = st.text_input("Enter starting letters:", "a")
     num_names = st.slider("How many names to generate?", 1, 20, 5)
-    temperature = st.slider("Creativity slider", 0.5, 2.0, 1.0, 0.1)
 
     valid_chars = set(m_dataset.chars)
     start_str = ''.join([c for c in start_str if c in valid_chars])
