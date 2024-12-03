@@ -22,8 +22,8 @@ class NameDataset(Dataset):
         return torch.tensor(encoded_name)
 
 
-m_dataset = NameDataset('man_names.csv')
-w_dataset = NameDataset('woman_names.csv')
+m_dataset = NameDataset('m_names.csv')
+w_dataset = NameDataset('w_names.csv')
 
 model = torch.load('namesformer_model.pt', map_location=torch.device('cpu'))
 model.eval()
