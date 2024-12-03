@@ -32,7 +32,6 @@ def app():
     st.title("Namesformer")
 
     start_str = st.text_input("Enter starting letters:", "A")
-    gender = st.selectbox("Choose gender:", ["man", "woman"])
     num_names = st.slider("How many names to generate?", 1, 20, 5)
     temperature = st.slider("Creativity slider", 0.5, 2.0, 1.0, 0.1)
 
