@@ -7,7 +7,7 @@ from utils import sample
 
 class NameDataset(Dataset):
     def __init__(self, csv_file):
-        self.names = pd.read_csv(csv_file)['name'].values
+        self.names = pd.read_csv(csv_file, encoding='utf-8')['name'].values
         self.chars = sorted(list(set(''.join(self.names) + ' ')))
         self.char_to_int = {c: i for i, c in enumerate(self.chars)}
         self.int_to_char = {i: c for c, i in self.char_to_int.items()}
