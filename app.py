@@ -25,12 +25,6 @@ class NameDataset(Dataset):
 m_dataset = NameDataset('man_names.csv')
 w_dataset = NameDataset('woman_names.csv')
 
-model = MinimalTransformer(
-    vocab_size=man_dataset.vocab_size,
-    embed_size=128,
-    num_heads=8,
-    forward_expansion=4,
-)
 model = torch.load('namesformer_model.pt', map_location=torch.device('cpu'))
 model.eval()
 
