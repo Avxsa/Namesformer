@@ -31,7 +31,7 @@ model = MinimalTransformer(
     num_heads=8,
     forward_expansion=4,
 )
-model.load_state_dict(torch.load('namesformer_model.pt', map_location=torch.device('cpu')))
+model = torch.load('namesformer_model.pt', map_location=torch.device('cpu'))
 model.eval()
 
 def app():
